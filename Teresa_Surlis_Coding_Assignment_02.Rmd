@@ -1,0 +1,179 @@
+---
+title: "Coding Assignment 02"
+date: "`r Sys.Date()`"
+output: html_document
+text.align: justify
+---
+
+----
+
+### Type your student name and ID
+
+Name and ID: 
+Teresa Surlis 702557904
+---
+
+----
+
+#### Task 1: Download and load the required packages:
+
+```{r}
+# your code goes here
+library(ggplot2)
+library(readr)
+```
+
+----
+
+#### Task 2: Load, view and return the structure of the mtcars built-in dataset.
+
+```{r}
+# your code goes here
+data("mtcars")
+View(mtcars)
+str(mtcars)
+```
+
+----
+
+#### Task 3: Follow the instruction sheet to add box plot.
+
+```{r}
+# your code goes here
+ggplot(data=mtcars,aes(x=factor(cyl),y=mpg))+geom_boxplot(width=0.3)+labs(x="Cyl",y="Mpg",title="Box Plots")+stat_summary(fun="mean",geom="point",shape=21,size=1.5,fill="blue")
+```
+
+----
+
+#### Task 4: Saving the plot as "Box Plot.png".
+
+```{r}
+# your code goes here
+ggsave("Box Plot.png")
+```
+
+----
+
+#### Task 5: Follow the instruction sheet to add a facetted histogram.
+
+```{r}
+# your code goes here
+ggplot(data=mtcars,mapping=aes(x=mpg))+geom_histogram(color="white",fill="blue4",binwidth=5)+facet_wrap(~gear,nrow=3)+theme_bw()
+ggsave("MPG facetted by Gear.png")
+```
+
+----
+
+#### Task 6: Follow the instructions sheet to add a histogram .
+
+```{r}
+# your code goes here
+ggplot(data=mtcars,mapping=aes(x=mpg))+geom_histogram(color="white",fill="red",bins=4)+labs(x="Miles per Gallon (mpg)",y="Count",title="A Histogram for MPG",subtitle="mtcars dataset")+theme_bw()
+```
+
+----
+
+#### Task 7: Follow the instructions sheet to add a facetted histogram.
+
+```{r}
+# your code goes here
+ggplot(data=mtcars,mapping=aes(x=carb,fill=factor(cyl)))+geom_histogram(binwidth=3,color="blue")+labs(x="Carburetors",y="Frequency")+facet_wrap(~factor(cyl))+theme_light()+theme(legend.position="top")
+ggsave("Facetted histogram.png")
+```
+
+----
+
+#### Task 8: Follow the instructions sheet to add a bar plot.
+
+```{r}
+# Your code goes here
+ggplot(data=mtcars,mapping=aes(x=factor(cyl),fill=factor(cyl)))+geom_bar(width=0.5)+labs(x="Cylinder",y="Count",title="Bar plot for mtcars cylinders")+theme_bw()+theme(legend.position="none")
+ggsave("mtcars cylinders.png")
+```
+
+----
+
+#### Task 9: Download the Train_crash dataset and set the workdirectory where you saved the dataset.
+
+```{r}
+# Download the Train_crash dataset.
+# Set the working directory where you saved the Train_crash dataset.
+```
+
+----
+
+#### Task 10: Load, view and return the structure of the Train_ds dataset.
+
+```{r}
+# your code goes here
+Train_ds<-read.csv("Train_crash.csv")
+View(Train_ds)
+str(Train_ds)
+```
+
+----
+
+#### Task 11: Add a bar plot showing the Survival Rate.
+
+```{r}
+# your code goes here
+ggplot(data=Train_ds,mapping=aes(x=factor(Survived),fill=factor(Survived)))+geom_bar(width=0.5)+labs(x="Survived",y="Passenger_Count",title="Train Crash Survival Rate")+theme_light()
+```
+
+----
+
+#### Task 12: Add a bar plot showing the Survival Rate by gender.
+
+```{r}
+# your code goes here
+ggplot(data=Train_ds,mapping=aes(x=factor(Survived),fill=factor(Gender)))+geom_bar(width=0.5)+labs(x="Survived",y="Passenger Count",title="Train Crash Survival Rate by Gender")+theme_bw()
+```
+
+----
+
+#### Task 13: Add a bar plot showing the Ticket Class by Gender
+
+```{r}
+# your code goes here
+ggplot(data=Train_ds,mapping=aes(x=factor(Tick_Class),fill=factor(Gender)))+geom_bar(width=0.8,position="dodge")+labs(x="Ticket Class",y="Passenger Count",title="Ticket Class by Gender")+theme_bw()
+```
+
+
+----
+
+#### Task 14: Add a bar plot showing the Survival Rate by Ticket Class
+
+```{r}
+# your code goes here
+ggplot(data=Train_ds,mapping=aes(x=factor(Tick_Class),fill=factor(Survived)))+geom_bar(width=0.7,position="dodge")+labs(x="Ticket Class",y="Passenger Count",title="Train Crash Survival Rates by Ticket Class")+theme_light()
+```
+
+----
+
+#### Task 15: Add a bar plot showing the Ticket Class per the Embarked Port
+
+```{r}
+# your code goes here
+ggplot(data=Train_ds,mapping=aes(x=factor(Tick_Class),fill=factor(Port_embark)))+geom_bar(width=0.8,position="dodge")+labs(x="Ticket Class",y="Passenger_Count",title="Ticket Class per the Embarked Port")+theme_light()
+```
+
+----
+
+#### Task 16: Add a bar plot showing the Embarked Port Survival Rate by Ticket Class
+
+```{r}
+# your code goes here
+ggplot(data=Train_ds,mapping=aes(x=factor(Survived),fill=factor(Tick_Class)))+geom_bar(width=0.8,position="dodge")+labs(x="Survived",y="Passenger Count",title="Embarked Port Survival Rate by Ticket Class")+facet_wrap(~factor(Port_embark))+theme_light()
+```
+
+----
+
+#### Task 17: Add a bar plot showing the Gender Survival Rate by Ticket Class
+
+```{r}
+# your code goes here
+ggplot(data=Train_ds,mapping=aes(x=factor(Survived),fill=factor(Tick_Class)))+geom_bar(width=0.7,position="dodge")+labs(x="Survived",y="Passenger Count",title="Gender Survival Rate by Ticket Class")+facet_wrap(~factor(Gender))+theme_light()
+ggsave("Gender Survival Rate by Ticket Class.png")
+```
+
+----

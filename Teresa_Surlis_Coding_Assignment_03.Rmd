@@ -1,0 +1,163 @@
+---
+title: "Coding Assignment 03"
+date: "`r Sys.Date()`"
+output: html_document
+text.align: justify
+---
+
+----
+
+### Type your student name and ID
+
+Name and ID: 
+Teresa Surlis 702557904
+---
+
+#### Task 1: Download the Admission dataset and set the work directory:
+
+```{r}
+# Make sure to set the work directory where you saved the dataset
+```
+
+----
+
+#### Task 2: Download and load the required packages:
+
+```{r}
+# your code goes here
+library(ggplot2) #load ggplot2
+library(pastecs) #load pastecs
+library(psych) #load psych
+library(readr) #load readr
+library(naniar) #load naniar
+library(mice) #load mice
+```
+
+----
+
+#### Task 3: Load, view and return the structure of the dataset.
+
+```{r}
+# your code goes here
+Admission<-read.csv("Admission.csv") #load Admission.csv and assign it to a variable called Admission
+View(Admission) #view Admission dataset
+str(Admission) #return structure of Admission dataset
+```
+
+----
+
+#### Task 4: Stroing categorical variables as factors in the dataset
+
+```{r}
+# your code goes here
+Admission$Major<-as.factor(Admission$Major) #store Major as a factor
+Admission$School_GPA<-as.factor(Admission$School_GPA) #store School_GPA as a factor
+Admission$Admitted<-as.factor(Admission$Admitted) #store Admitted as a factor
+```
+
+----
+
+#### Task 5: Return Summary Statistics of the Admission Dataset:
+
+```{r}
+# your code goes here
+summary(Admission) #return summary statistics of Admission dataset
+```
+
+----
+
+#### Task 6: Summary statistics using the pastecs package.
+
+```{r}
+# your code goes here
+library(pastecs) #load pastecs
+options(scipen=999)
+stat.desc(Admission) #return summary statistics of Admission dataset using pastecs package
+```
+
+----
+
+#### Task 7: Using the describe function of the psych package to get the Summary statistics for all variables.
+
+```{r}
+# your code goes here
+library(psych) #load psych
+describe(Admission) #return summary statistics of Admission dataset
+```
+
+----
+
+#### Task 8: Using the describeBy function to get the Summary statistics for all variables by Major.
+
+```{r}
+# your code goes here
+library(psych) #load psych
+describeBy(Admission~Major) #return summary statistics of Admission dataset by variable Major
+```
+
+----
+
+#### Task 9: Using the describeBy function to get the Summary statistics for all variables by Admitted
+
+```{r}
+# your code goes here
+library(psych) #load psych
+describeBy(Admission~Admitted) #return summary statistics of Admission dataset by variable Admitted
+```
+
+
+#### Task 10: Download the Students dataset and set the work directory:
+
+```{r}
+# Make sure to set the work directory where you saved the Students dataset
+```
+
+----
+
+#### Task 11: Load, view and return the structure of the Students dataset.
+
+```{r}
+# your code goes here
+Students<-read.csv("Students.csv") #load Students.csv and assign to variable called Students
+View(Students) #view Students
+str(Students) #return structure of Students
+```
+
+----
+
+#### Task 12: Exploring the dataset for missing values using the naniar package.
+
+```{r}
+# your code goes here
+library(naniar) #load naniar
+n_miss(Students) #return number of missing values
+n_complete(Students) #return the number of complete values
+pct_complete(Students) #return the percentage of complete values
+pct_miss(Students) #return percentage of missing values
+pct_miss_case(Students) #return percentage of rows with missing values
+pct_complete_case(Students) #return percentage of rows with no missing values
+gg_miss_var(Students,show_pct=TRUE) #return percentage of missing values
+vis_miss(Students) #return heat-map of missing variable
+```
+
+----
+
+#### Task 13: Data Imputation.
+
+```{r}
+# your code goes here
+library(mice)
+imputed_dataset=mice(Students,m=5,method=c("","rf","rf","pmm","pmm","pmm"),maxit=5) #impute missing values using mice method
+mean(Students$GRE_Score, na.rm=TRUE)
+imputed_dataset$imp$GRE_Score
+final_imputed_ds=complete(imputed_dataset,2)
+```
+
+----
+
+#### Task 14: Viewing the clean Imputed Dataset.
+
+```{r}
+# your code goes here
+View(final_imputed_ds) #view the imputed dataset
+```

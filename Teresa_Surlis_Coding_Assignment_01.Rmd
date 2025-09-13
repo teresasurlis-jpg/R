@@ -1,0 +1,174 @@
+---
+title: "Coding Assignment 01"
+date: "`r Sys.Date()`"
+output: html_document
+text.align: justify
+---
+
+----
+
+### Type your student name and ID
+
+Name and ID: 
+Teresa Surlis 702557904
+---
+
+#### Task 1: Calculate the following quantities:
+
+1. The sum of 10.01, 25.003, and 37.5
+2. The square root of 214
+3. Calculate the 10-based logarithm of 90, and multiply the result with pi 
+(Hint: use `log()` and `pi`).
+
+```{r}
+# your code goes here
+10.01+25.003+37.5 #calculate the sum
+sqrt(214) #calculate the square root of 214
+(log(90,base=10))*pi #calculate log90 base10 times pi
+```
+
+----
+
+
+#### Task 2: Assigns numbers 25 and 55 to objects x and y, like this: x<-25, y<-55
+
+1. Calculate the product of x and y
+2. Store the result in a new object called z
+3. Make a vector of the objects x, y, and z. Use this command myvec<-c(x,y,z) then print it
+
+```{r}
+# your code goes here
+x<-25 #assign 25 to object x
+y<-55 #assign 55 to object y
+x*y #multiply objects x and y
+z<-x*y #result of x multiplied by y stored as object z
+myvec<-c(x,y,z) #create a vector of objects x,y,z
+print(myvec) #print vector 
+```
+
+----
+
+#### Task 3: The following is Jacket sales data as per the temperature: Temp(43, 39, 62), Jacket_Sold(23, 36, 13).
+
+1. Enter the data in a data frame with two columns.
+2. Print the data frame structure, no. of columns, and no. of rows
+3. Print the entire data frame.
+4. Print only the Jacket_Sold
+5. Print the temperature when you sold 36 jackets
+
+```{r}
+# your code goes here
+df<-data.frame(Temp=c(43,39,62),Jacket_Sold=c(23,36,13)) #create DF from Jacket sales data
+str(df) #return the structure of DF
+ncol(df) #return the number of columns of DF
+nrow(df) #return the number of rows of DF
+df #print DF
+df[2] #print Jacket_Sold
+df[2,1] #print temperature when 36 jackets were sold
+```
+
+----
+
+#### Task 4: Download and load the ggplot2 package.
+
+```{r}
+# your code goes here
+library(ggplot2) #load ggplot2
+library(readr) #load readr
+```
+
+----
+
+#### Task 5: Follow the instruction sheet.
+
+```{r}
+# your code goes here
+data(USArrests) #load built-in data set
+View(USArrests) #view data set
+str(USArrests) #return the structure of data set
+```
+
+----
+
+#### Task 6: Follow the instruction sheet.
+
+```{r}
+# your code goes here
+ggplot(data=USArrests,aes(x=UrbanPop,y=Rape))+geom_point() #add scatter plot to show relation between UrbanPop & Rape
+```
+
+----
+
+#### Task 7: Follow the instruction sheet.
+
+```{r}
+# your code goes here
+ggplot(data=USArrests,aes(x=UrbanPop,y=Rape))+geom_point(shape=15,color="blue3",size=2) #add scatter plot to show relation between UrbanPop & Rape edit geom_point() shape to 15, color to blue3, size to 2
+```
+
+----
+
+#### Task 8: Follow the instruction sheet.
+
+```{r}
+# your code goes here
+ggplot(data=USArrests,aes(x=UrbanPop,y=Rape))+geom_point(shape=3,color="blue3",size=1.5)+theme_bw() #add scatter plot to show relation between UrbanPop & Rape edit geom_point() shape to 3, color to blue, size to 1.5 and theme to theme_bw()
+```
+
+----
+
+#### Task 9: Follow the instruction sheet.
+
+```{r}
+# your code goes here
+ggplot(data=USArrests,aes(x=UrbanPop,y=Rape))+geom_point(shape=13,color="red",size=2)+labs(x="Urban Population",y="Rape",title="The Relationship between Urban Population and Rape",subtitle="Year 1973")+theme_classic() #add scatter plot to show relation between UrbanPop & Rape edit geom_point() shape to 13, color to red, size to 2 and add labels and titles and change theme to theme_classic()
+```
+
+----
+
+#### Task 10: Saving the scatter plot as "Scatter Plot.png":
+
+```{r}
+# your code goes here
+ggsave("Scatter Plot.png") #save scatter plot
+```
+
+----
+
+#### Task 11: Download the names_popularity dataset and set the work directory:
+
+```{r}
+# Make sure to set the work directory where you saved the dataset and the notebook
+```
+
+----
+
+#### Task 12: Load, view and return the structure of the dataset.
+
+```{r}
+# your code goes here
+Names<-read.csv("names_popularity.csv") #load file and assign to variable called Names
+View(Names) #view Names data set
+str(Names) #return the structure of Names data set
+```
+
+----
+
+#### Task 13: Create a line graph as per the instructions sheet:
+
+```{r}
+# your code goes here
+ggplot(data=Names,aes(x=Year,y=Number,group=Name))+geom_line(aes(color=Name),linewidth=1)+theme_light()+labs(x="Years",y="Numbers",title="Names' Popularity") #create a line graph to show relationship between Year and Number grouped by Name variable
+```
+
+----
+
+#### Task 14: Saving the line graph as "Names' Popularity Line graph.png":
+
+```{r}
+# your code goes here
+ggsave("Names' Popularity Line graph.png") #save line graph
+```
+
+----
+

@@ -1,0 +1,211 @@
+---
+title: "Coding Assignment 04"
+output:
+  html_document:
+    df_print: paged
+---
+
+----
+
+### Type your student name and ID
+
+Name and ID: 
+Teresa Surlis 702557904
+---
+
+
+## Task 1: Simple Linear Regression
+
+### Task 1.1: Download the MP3_data and set the work directory where you saved the dataset.
+
+```{r}
+# Download the MP3_data
+# Set the work directory where you saved the MP3_data
+```
+
+### Task 1.2: Download and load the required packages.
+
+```{r}
+# Your code goes here
+library(ggplot2)
+library(ggpubr)
+```
+
+### Task 1.3: Load, view the Mp3_ds dataset, and returning the Mp3_ds dataset structure.
+
+```{r}
+# Your code goes here
+MP3_ds<-read.csv("MP3_data.csv")
+View(MP3_ds)
+str(MP3_ds)
+```
+
+### Task 1.4: Adding a scatter plot with points and trendline. Adding R^2 value and the linear regression model equation to the plot
+
+```{r}
+# Your code goes here
+ggplot(MP3_ds,mapping=aes(x=Months,y=No_of_Songs))+geom_point(color="yellow",size=2)+geom_smooth(method='lm',se=FALSE,color="red",formula=y~x)+stat_cor(aes(label=..rr.label..),label.x=5,label.y=600)+stat_regline_equation(label.x=5,label.y=555)
+```
+
+### Task 1.5: Build a linear regression model.
+
+```{r}
+# Your code goes here
+Linear_Model<-lm(No_of_Songs~Months,data=MP3_ds)
+summary(Linear_Model)
+```
+
+### Task 1.6: Print the linear regression model coefficients.
+
+```{r}
+# Your code goes here
+Linear_Model$coefficients
+```
+
+### Task 1.7: Using the linear regression model to predict the No_of_Songs when the Months are 5.
+
+```{r}
+# Your code goes here
+predict(Linear_Model,data.frame(Months=5))
+```
+
+### Task 1.8: Using the linear regression model to predict the No_of_Songs when the Months are a range of Months.
+
+```{r}
+# Your code goes here
+rangevalues<-data.frame(Months<-c(4,12,10,7))
+predict(Linear_Model,rangevalues)
+```
+
+
+## Task 2: Multiple Linear Regression
+
+### Task 2.1: Download the Cars_data and set the work directory where you saved the dataset.
+
+```{r}
+# Download the Cars_data
+# Set the work directory where you saved the Cars_data
+```
+
+### Task 2.2: Load, view the Cars_ds dataset, and returning the Cars_ds dataset structure.
+
+```{r}
+# Your code goes here
+Cars_ds<-read.csv("Cars_data.csv")
+View(Cars_ds)
+str(Cars_ds)
+```
+
+### Task 2.3: Check for Multicollinearity, but do not drop any variable 
+
+```{r}
+# Your code goes here
+cor(Cars_ds,method="pearson")
+```
+
+### Task 2.4: Building a linear regression model called MLR_Model1.
+
+```{r}
+# Your code goes here
+options(scipen=999)
+MLR_model1<-lm(Price~Year+Kilometer+Engine+MaxPower+Length+Width+Height+FuelTankCapacity+SeatingCapacity,data=Cars_ds)
+summary(MLR_model1)
+```
+
+### Task 2.5: Re-building a linear regression model called MLR_Model2 after dropping non-significant variables.
+
+```{r}
+# Your code goes here
+options(scipen=999)
+MLR_Model2<-lm(Price~Year+Kilometer+Engine+MaxPower+FuelTankCapacity,data=Cars_ds)
+summary(MLR_Model2)
+```
+
+### Task 2.6: Print the MLR_Model2 model coefficients.
+
+```{r}
+# Your code goes here
+MLR_Model2$coefficients
+```
+
+### Task 2.7: Predicting a car price using the predict() method.
+
+```{r}
+# Your code goes here
+predict(MLR_Model2,data.frame(Year=2022,Kilometer=11350,Engine=2450,MaxPower=222,FuelTankCapacity=5))
+```
+
+
+## Task 3: Logistic Regression
+
+### Task 3.1: Download the Stroke_dataset and set the work directory where you saved the dataset.
+
+```{r}
+# Download the Stroke_dataset 
+# Set the work directory where you saved the Stroke_dataset 
+```
+
+### Task 3.2: Download and load the required packages.
+
+```{r}
+# Your code goes here
+library(readr)
+library(caTools)
+library(caret)
+```
+
+### Task 3.3: Load, view the Stroke_ds dataset, and returning the Stroke_ds dataset structure.
+
+```{r}
+# Your code goes here
+Stroke_ds<-read.csv("Stroke_dataset.csv")
+View(Stroke_ds)
+str(Stroke_ds)
+```
+
+### Task 3.4: Split the dataset into two datasets: training and testing.
+
+```{r}
+# Your code goes here
+library(caTools)
+split<-sample.split(Stroke_ds$stroke,SplitRatio=0.7)
+TrainData<-subset(Stroke_ds,split=="TRUE")
+TestData<-subset(Stroke_ds,split=="FALSE")
+```
+
+### Task 3.5: Build a logistics regression model.
+
+```{r}
+# Your code goes here
+Logistic_Model<-glm(stroke~age+hypertension+heart_disease+ever_married+avg_glucose_level+smoking_status,data=TrainData,family='binomial')
+summary(Logistic_Model)
+```
+
+### Task 3.6: Get the probability values for the train and test models but DONOT PRINT THE VALUES .
+
+```{r}
+# Your code goes here
+prob_train<-predict(Logistic_Model,TrainData,type="response")
+prob_test<-predict(Logistic_Model,TestData,type="response")
+```
+
+### Task 3.7: Generate and print the confusion matrix for the Stroke_ds dataset with a threshold of 0.5
+
+```{r}
+# Your code goes here
+probability_values<-predict(Logistic_Model,Stroke_ds,type="response")
+PredictionClass<-ifelse(probability_values>0.50,1,0)
+confusionMatrix(as.factor(PredictionClass),as.factor(Stroke_ds$stroke))
+```
+
+### Task 3.8: Validate the logistic regression model by calculating the accuracy, precision, and recall.
+
+```{r}
+# Your code goes here
+Accuracy<-c((4861+0)/(4861+0+249+0))
+Accuracy
+Prediction<-c(0/0)
+Prediction
+Recall<-c(0)/(0+249)
+Recall
+```
